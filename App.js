@@ -1,12 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import UserProfile from './src/components/UserProfile';
+import { Provider } from 'react-redux';
+import store from './store';
 
-export default class App extends React.Component {
+class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Welcome to Runners Mind</Text>
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Text>Welcome to Runners Mind</Text>
+          <Button 
+            title="Get Data"
+          />
+          <UserProfile />
+        </View>
+      </Provider>
     );
   }
 }
@@ -19,3 +28,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
