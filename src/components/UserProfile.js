@@ -4,12 +4,14 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { getUser } from '../actions/userActions';
 import UsersList from './UsersList';
+import UserCard from './UserCard';
 
 class UserProfile extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.runnersText}>Welcome to Runners Mind</Text>
+        <UserCard />
         <Button 
           onPress={()=>{this.props.getUser()}}
           title="Get Data"
