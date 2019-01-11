@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Button, FlatList } from 'react-native';
-import { bindActionCreators } from 'redux';
 import { ListItem, Avatar } from 'react-native-elements'
+import { bindActionCreators } from 'redux';
 import { List } from 'native-base';
 
 class UsersList extends Component {
   render() {
     let { users } = this.props;
-
+    
     return (
       <View>
         {!users ? (null) : users.map(user => (
-          <React.Fragment>
+          <Fragment key={user.id}>
             <ListItem 
               title={user.email}
               subtitle={user.username}
@@ -23,7 +23,7 @@ class UsersList extends Component {
                 onPress={() => console.log("Works!")}
               />}
             />
-          </React.Fragment>
+          </Fragment>
         ))}
       </View>
     )

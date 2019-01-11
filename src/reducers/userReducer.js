@@ -1,18 +1,18 @@
 import {
-  GET_USER
-} from '../actions/types';
+  actionTypes
+} from '../actions';
 
 const initialState = {
   email: '',
   username: ''
 }
 
-export default (state = initialState, action) => {
-  switch(action.type) {
-    case GET_USER:
+export default (state = initialState, {type, payload}) => {
+  switch(type) {
+    case actionTypes.GET_USER:
       return {
         ...state,
-        users: action.payload
+        users: payload
       }
     default:
       return state;
