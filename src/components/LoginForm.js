@@ -4,6 +4,7 @@ import { Container, Header, Content, Form, Item, Input, Label, Button, Text, H1 
 
 class LoginForm extends Component {
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <Container>
           <Form style={styles.container}>
@@ -17,7 +18,7 @@ class LoginForm extends Component {
               <Input />
             </Item>
           </Form>
-          <Button style={styles.loginButton} small bordered><Text> Login </Text></Button>
+          <Button onPress={() => navigate('UserProfile')} style={styles.loginButton} small bordered><Text> Login </Text></Button>
       </Container>
     )
   }
@@ -27,9 +28,6 @@ const styles = StyleSheet.create({
   loginButton: {
     width: '100%',
     justifyContent: 'center',
-  },
-  container: {
-    marginTop: 275,
   }
 })
 
