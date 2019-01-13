@@ -7,6 +7,7 @@ import { getUser } from '../actions/userActions';
 import UsersList from './UsersList';
 import UserCard from './UserCard';
 import UserPost from './UserPost';
+import LoginForm from './LoginForm';
 
 class UserProfile extends Component {
   state = {
@@ -21,13 +22,13 @@ class UserProfile extends Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        <UserCard toggle={this.toggleState}/>
-        {!this.state.toggle ? null : <UsersList />}
-        
-        <UserPost />
-        {!this.state.toggle ? null : <UsersList />}
-      </View> 
+      <View style={{flex:1}}>
+        <View style={styles.container}>
+          <UserCard toggle={this.toggleState}/>
+          {!this.state.toggle ? null : <UsersList />}
+          <UserPost />
+        </View> 
+      </View>
     )
   }
 }

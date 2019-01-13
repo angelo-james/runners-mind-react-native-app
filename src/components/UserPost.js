@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { ScrollView, Image, StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Body, Right, Button } from 'native-base';
 import { getUser } from '../actions/userActions';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 class UserPost extends Component {
   render() {
     return (
-      <Content>
+        <ScrollView>
           <Card>
             <CardItem>
               <Left>
@@ -42,7 +42,7 @@ class UserPost extends Component {
               </Right>
             </CardItem>
           </Card>
-        </Content>
+        </ScrollView>
     )
   }
 }
