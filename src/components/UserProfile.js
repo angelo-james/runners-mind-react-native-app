@@ -6,6 +6,7 @@ import { getUser } from '../actions/userActions';
 import UsersList from './UsersList';
 import UserCard from './UserCard';
 import UserPost from './UserPost';
+import LoginForm from './LoginForm';
 import UserFollowers from './UserFollowers';
 
 class UserProfile extends Component {
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
     width: '100%',
     // alignItems: 'center',
     // justifyContent: 'center',
-    marginTop: 40,
     flexDirection: 'column',
     justifyContent: 'center'
     
