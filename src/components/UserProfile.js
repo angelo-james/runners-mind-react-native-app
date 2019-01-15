@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
-import { Container, Header, Content, Form, Item, Input, Button, Text } from 'native-base';
 import { getUser } from '../actions/userActions';
 import UsersList from './UsersList';
 import UserCard from './UserCard';
 import UserPost from './UserPost';
 import LoginForm from './LoginForm';
+import UserFollowers from './UserFollowers';
 
 class UserProfile extends Component {
   state = {
-    toggle: false 
+    toggle: false
   }
 
   toggleState = () => {
@@ -22,13 +22,18 @@ class UserProfile extends Component {
   
   render() {
     return (
-      <View style={{flex:1}}>
-        <View style={styles.container}>
-          <UserCard toggle={this.toggleState}/>
-          {!this.state.toggle ? null : <UsersList />}
-          <UserPost />
-        </View> 
-      </View>
+      <View style={styles.container}>
+        <UserCard 
+          toggle={this.toggleState}
+        />
+        {/* {!this.state.toggle ? null : <UsersList />} */}
+        
+        <UserPost />
+        <UserFollowers 
+          toggle={this.toggleState}
+          showModal={this.state.toggle}
+        />
+      </View> 
     )
   }
 }
