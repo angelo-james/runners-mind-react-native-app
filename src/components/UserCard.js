@@ -11,7 +11,7 @@ class UserCard extends Component {
     this.props.getUser()
     this.props.toggle()
   }
-  
+
   render() {
     return (
       <Card>
