@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Container, Header, Content, Form, Item, Input, Label, Button, Text, H1 } from 'native-base';
+import { Container, Form, Item, Label, Button, Text, H1 } from 'native-base';
 import { validateUser } from '../actions/userActions';
 class LoginForm extends Component {
   state = {

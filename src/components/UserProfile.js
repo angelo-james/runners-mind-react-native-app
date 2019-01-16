@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
-import { Container, Header, Content, Form, Item, Input, Label, Text, H1, Button } from 'native-base';
+import { Text, Button } from 'native-base';
 import { getUser } from '../actions/userActions';
 
 import UserCard from './UserCard';
@@ -66,8 +66,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     width: '100%',
-    // alignItems: 'center',
-    // justifyContent: 'center',
     flexDirection: 'column',
     justifyContent: 'center'
     

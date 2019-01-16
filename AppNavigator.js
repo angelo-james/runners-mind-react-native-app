@@ -8,8 +8,7 @@ const AppNavigator = createStackNavigator({
     headerTitle:'Disable back Options',
     screen: LoginForm,
     navigationOptions: {
-      title: 'Login',
-      
+      title: 'Login'
     }
   },
   UserProfile: {

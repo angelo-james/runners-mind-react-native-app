@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, H1 } from 'native-base';
-import { Avatar } from 'react-native-elements';
+import { CardItem, Text, Button, Body, H1 } from 'native-base';
 import { getUser } from '../actions/userActions';
 
 class UserCard extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Body, Right, Button } from 'native-base';
+import { Card, CardItem, Text, Icon, Left, Body, Right, Button } from 'native-base';
 import { getUser } from '../actions/userActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';

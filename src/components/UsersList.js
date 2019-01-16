@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, Button, FlatList } from 'react-native';
+import { View } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements'
-import { bindActionCreators } from 'redux';
-import { List } from 'native-base';
 
 class UsersList extends Component {
   render() {
@@ -32,7 +30,6 @@ class UsersList extends Component {
 
 const mapDispatchToProps = (dispatch => {
   return {
-    
   }
 })
 

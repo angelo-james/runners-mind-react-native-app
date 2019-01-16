@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
-import { View, StyleSheet, Image } from 'react-native';
+import { Content, Card, CardItem, Text } from 'native-base';
+import { View, StyleSheet } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Constants, Location, Permissions, TaskManager } from 'expo';
+import { Location, Permissions, TaskManager } from 'expo';
 import TimeFormatter from 'minutes-seconds-milliseconds';
 import { sendPost } from '../actions/userActions';
 
