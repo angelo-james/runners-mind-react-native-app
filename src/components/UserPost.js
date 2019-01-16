@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Icon, Left, Body, Right, Button } from 'native-base';
 import { getUser } from '../actions/userActions';
 import { connect } from 'react-redux';
@@ -7,18 +7,10 @@ import { bindActionCreators } from 'redux';
 
 class UserPost extends Component {
   render() {
+    
     return (
-        <ScrollView>
+        <View>
           <Card>
-            <CardItem>
-              <Left>
-                <Body>
-                  <Button transparent style={styles.postUserName}>
-                    <Text>@ajarriola</Text>
-                  </Button>
-                </Body>
-              </Left>
-            </CardItem>
             <CardItem cardBody>
               <Image source={{uri: 'http://files.www.fleetfeetcincy.com/resources/running-routes/5MileCarp.png'}} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>
@@ -42,7 +34,7 @@ class UserPost extends Component {
               </Right>
             </CardItem>
           </Card>
-        </ScrollView>
+        </View>
     )
   }
 }

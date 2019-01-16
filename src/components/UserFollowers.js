@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Text, TouchableHighlight, ScrollView, View, Alert, Header } from 'react-native';
+import { Modal, Text, TouchableHighlight, ScrollView, View, Alert } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements'
+import { H1 } from 'native-base';
 
 class UserFollowers extends Component {
   state = {
@@ -10,7 +11,6 @@ class UserFollowers extends Component {
   
   render() {
     let { users } = this.props;
-    console.log(this.props)
     return (
       <View style={{marginTop: 22}}>
         <Modal
@@ -22,12 +22,19 @@ class UserFollowers extends Component {
           }}>
           
           <ScrollView style={{marginTop: 22}}>
-            <Text>
+            <H1 style={{alignSelf: 'center', marginTop: 15}}>
               Followers
-            </Text>
+            </H1>
+            <TouchableHighlight
+              style={{alignSelf: 'center'}}
+              onPress={() => {
+                this.props.toggle();
+              }}>
+              <Text>Hide Modal</Text>
+            </TouchableHighlight>
             
             {!users ? (null) : users.map(user => (
-          <Fragment key={user.id}>
+          <Fragment key={user._id}>
             <ListItem 
               title={user.email}
               subtitle={user.username}
@@ -40,12 +47,6 @@ class UserFollowers extends Component {
             />
           </Fragment>
         ))}
-              <TouchableHighlight
-                onPress={() => {
-                  this.props.toggle();
-                }}>
-                <Text>Hide Modal</Text>
-              </TouchableHighlight>
             
           </ScrollView>
         </Modal>

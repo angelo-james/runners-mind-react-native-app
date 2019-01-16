@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { bindActionCreators } from 'redux';
+import { Container, Header, Content, Form, Item, Input, Label, Text, H1, Button } from 'native-base';
 import { getUser } from '../actions/userActions';
-import UsersList from './UsersList';
+
 import UserCard from './UserCard';
 import UserPost from './UserPost';
-import LoginForm from './LoginForm';
 import UserFollowers from './UserFollowers';
 
 class UserProfile extends Component {
   state = {
     toggle: false
+  }
+
+  toggle = (navigate) => {
+    navigate('RunScreen')
   }
 
   toggleState = () => {
@@ -21,18 +25,25 @@ class UserProfile extends Component {
   }
   
   render() {
+    const { navigate } = this.props.navigation;
+    
     return (
       <View style={styles.container}>
         <UserCard 
           toggle={this.toggleState}
         />
-        {/* {!this.state.toggle ? null : <UsersList />} */}
-        
-        <UserPost />
-        <UserFollowers 
-          toggle={this.toggleState}
-          showModal={this.state.toggle}
-        />
+        <Button onPress={() => this.toggle(navigate)} style={{alignSelf: 'center'}} small bordered>
+          <Text>
+            Start a New Run
+          </Text>
+        </Button>
+        <ScrollView>
+          <UserPost />
+          <UserFollowers 
+            toggle={this.toggleState}
+            showModal={this.state.toggle}
+          />
+        </ScrollView>
       </View> 
     )
   }
@@ -52,6 +63,7 @@ const mapStateToProps = (state, dispatch) => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#fff',
     width: '100%',
     // alignItems: 'center',

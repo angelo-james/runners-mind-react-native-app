@@ -1,11 +1,11 @@
-import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import LoginForm from './src/components/LoginForm';
 import UserProfile from './src/components/UserProfile';
-import LoginFrom from './src/components/LoginForm';
+import RunScreen from './src/components/RunScreen';
 
+const TabNavigator = createBottomTabNavigator({
+  RunScreen: RunScreen
 
-const TabNavigator = createStackNavigator({
-  LoginForm: LoginFrom,
-  UserProfile: UserProfile
-})
+});
 
 export default createAppContainer(TabNavigator);

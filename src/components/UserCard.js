@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right, H1 } from 'native-base';
 import { Avatar } from 'react-native-elements';
 import { getUser } from '../actions/userActions';
 
@@ -14,15 +14,10 @@ class UserCard extends Component {
 
   render() {
     return (
-      <Card>
+      <View>
         <CardItem>
           <Body style={styles.userInfo}>
-            <Text>AJ Arriola</Text>
-          </Body>
-        </CardItem>
-        <CardItem>
-          <Body style={styles.userInfo}>
-            <Text note>@ajarriola</Text>
+            <H1>@ajarriola</H1>
           </Body>
         </CardItem>
         <CardItem>
@@ -33,11 +28,21 @@ class UserCard extends Component {
               </Text>
             </Button>
             <Button transparent>
-              <Text>0 Following</Text>
+              <Text onPress={()=>{this.toggle()}}>
+                0 Following
+              </Text>
             </Button>
           </Body>
         </CardItem>
-      </Card>
+        <CardItem style={{alignSelf: 'center', justifyContent: 'space-between'}}>
+            <Button small bordered success>
+              <Text>Follow</Text>
+            </Button>
+            <Button small bordered danger>
+              <Text>Unfollow</Text>
+            </Button>
+        </CardItem>
+      </View>
     )
   }
 }
@@ -57,7 +62,8 @@ const mapStateToProps = (state, dispatch) => {
 const styles = StyleSheet.create({
   friendsButton: {
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'space-evenly',
+    width: '100%'
   },
   userInfo: {
     flexDirection: 'row',
