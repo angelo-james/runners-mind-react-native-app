@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import {
   actionTypes
 } from './';
@@ -18,26 +19,59 @@ export const getUser = () => {
 }
 
 export const validateUser = credentials => {
-  return dispatch => {
-    fetch('http://localhost:3800/users/login', {
-      method: 'POST',
-      body: JSON.stringify(credentials),
-      headers: { 
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then( async result => {
-      let user = await result.json()
-          dispatch({
-            type: VALIDATE_USER,
-            payload: {
-              token,
-              user
-            }
-          })
-      }
-    )
+  return async dispatch => {
+    try {
+      let response = await fetch('http://localhost:3800/users/login', {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+        headers: { 
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        }
+      })
+      let user = await response.json()
+      AsyncStorage.setItem('token', user.token)
+      dispatch({
+        type: actionTypes.VALIDATE_USER,
+        payload: {
+          user
+        }
+      })
+    }
+    catch(error) {
+      dispatch({
+        type: actionTypes.VALIDATE_USER_FAILED,
+        payload: error.message
+      })
+    }
+  }
+}
+
+export const validateToken = () => {
+  return async dispatch => {
+    try {
+      let token = await AsyncStorage.getItem('token')
+      let response = await fetch('http://localhost:3800/users/token', {
+        method: 'POST',
+        body: JSON.stringify({token: token}),
+        headers: { 
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        }
+      })
+      let user = await response.json()
+      dispatch({
+        type: actionTypes.VALIDATE_TOKEN_SUCCESS,
+        payload: user
+      })
+    }
+    catch(error) {
+      AsyncStorage.removeItem('token')
+      dispatch({
+        type: actionTypes.VALIDATE_TOKEN_FAILED,
+        payload: error.message
+      })
+    }
   }
 }
 

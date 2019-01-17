@@ -12,23 +12,23 @@ class UserCard extends Component {
   }
 
   render() {
-    return (
+    return !this.props.user ? null : (
       <View>
         <CardItem>
           <Body style={styles.userInfo}>
-            <H1>@ajarriola</H1>
+            <H1>@{this.props.user.name}</H1>
           </Body>
         </CardItem>
         <CardItem>
           <Body style={styles.friendsButton}>
             <Button transparent>
               <Text onPress={()=>{this.toggle()}}>
-                4 Followers
+                {this.props.user.followers.length} Followers
               </Text>
             </Button>
             <Button transparent>
               <Text onPress={()=>{this.toggle()}}>
-                0 Following
+              {this.props.user.following.length} Following
               </Text>
             </Button>
           </Body>
@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch => {
 
 const mapStateToProps = (state, dispatch) => {
   return {
-    ...state.user
+    user: state.user.user.user
   }
 }
 

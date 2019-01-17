@@ -7,12 +7,19 @@ import { Icon } from 'react-native-elements';
 import { Location, Permissions, TaskManager } from 'expo';
 import TimeFormatter from 'minutes-seconds-milliseconds';
 import { sendPost } from '../actions/userActions';
+import haversine from 'haversine';
+
+let coords = [];
 
 TaskManager.defineTask('userLocation', async ({data: {locations}, error}) => 
-  {
-    console.log(locations[0].coords);
-    let options = await TaskManager.getTaskOptionsAsync('userLocation')
-    console.log(options)
+  { 
+    // let options = await TaskManager.getTaskOptionsAsync('userLocation')
+    let { longitude, latitude } = locations[0].coords
+    console.log(longitude, latitude, 'insidetask man')
+    coords.push({
+      long: longitude,
+      lat: latitude
+    });
   })
 
 class RunScreen extends Component {
@@ -24,17 +31,20 @@ class RunScreen extends Component {
     distance: '0.00',
     mainTimer: null,
     isRuuning: false,
-    mainTimerStart: null
+    mainTimerStart: null,
+    postId: ''
   }
 
   componentDidMount() {
-
   }
 
   startRun = async (postId) => {
+    this.setState({
+      postId
+    })
     try {
       let { status } = await Permissions.askAsync(Permissions.LOCATION)
-
+      console.log(status)
       if (status !== 'granted') {
         this.setState({errorMessage: 'we need permissions'})
       }
@@ -48,8 +58,33 @@ class RunScreen extends Component {
   }
 
   
-  stopRun = () => {
+  stopRun = async () => {
+    console.log(this.state, coords, 'inside stip rinf')
+
     Location.stopLocationUpdatesAsync('userLocation')
+    try {
+      await fetch('http://127.0.0.1:3800/coords', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          coords,
+          postId: this.state.postId
+        })
+      })
+    }
+    catch(error) {
+      console.log(error.message)
+    }
+    this.setState({
+      distance: haversine(
+        {latitude: coords[0].lat, longitude: coords[0].long}, 
+        {latitude: coords[coords.length - 1].lat, longitude: coords[coords.length - 1].long}
+      )
+    })
+    coords = [];
+
   }
   
   handleStartBtn = async () => {
@@ -79,25 +114,30 @@ class RunScreen extends Component {
       displayStart: !this.state.displayStart,
       displayStop: !this.state.displayStop
     })
-    let response = await fetch('http://127.0.0.1:3800/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        "mainTimer": 0,
-        "distance": 0,
-        "coords": [],
-        "likes": [],
-        "comments": [],
-        "userId": '5c3d3dd34567a41aa5c68b67'
-      }),
-      headers: { 
-        'Accept': 'application/json, text/plain, */*',
-        'Content-Type': 'application/json'
-      }
-    })
-    let run = await response.json()
+    try {
+      let response = await fetch('http://127.0.0.1:3800/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+          "mainTimer": 0,
+          "distance": 0,
+          "coords": [],
+          "likes": [],
+          "comments": [],
+          "userId": '5c3d3dd34567a41aa5c68b67'
+        }),
+        headers: { 
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        }
+      })
+      console.log(response, 'the runnn')
+      let run = await response.json()
+      this.startRun(run.data.postId)
     
-    this.startRun(run.data.postId)
-
+    }
+    catch(error) {
+      console.log(error.message)
+    }
   }
 
   handleStopBtn = () => {
@@ -149,7 +189,7 @@ class RunScreen extends Component {
                   <Text
                     style={{fontSize: 15, alignSelf: 'center'}}
                   >
-                    DISTANCE
+                    DISTANCE TRAVELLED
                   </Text>
                 </View>
               </CardItem>

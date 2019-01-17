@@ -9,6 +9,7 @@
   "dependencies": {
     "@expo/vector-icons": "^9.0.0",
     "expo": "^32.0.0",
+    "haversine": "^1.1.1",
     "minutes-seconds-milliseconds": "^1.0.3",
     "native-base": "^2.10.0",
     "react": "16.5.0",

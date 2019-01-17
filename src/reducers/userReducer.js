@@ -3,8 +3,8 @@ import {
 } from '../actions';
 
 const initialState = {
-  username: '',
-  password: ''
+  user: {},
+  error: ''
 }
 
 export default (state = initialState, {type, payload}) => {
@@ -17,17 +17,34 @@ export default (state = initialState, {type, payload}) => {
     case actionTypes.VALIDATE_USER:
       return {
         ...state,
-        user: action.payload
+        user: payload
+      }
+    case actionTypes.VALIDATE_USER_FAILED:
+      return {
+        ...state,
+        user: {},
+        error: payload
+      }
+    case actionTypes.VALIDATE_TOKEN_SUCCESS:
+      return {
+        ...state,
+        user: payload
+      }
+    case actionTypes.VALIDATE_TOKEN_FAILED:
+      return {
+        ...state,
+        user: {},
+        error: payload
       }
     case actionTypes.SEND_POST:
       return {
         ...state,
-        post: action.payload
+        post: payload
       }
     case actionTypes.SEND_POST_FAILED:
       return {
         ...state,
-        post: action.payload
+        post: payload
       }
     default:
       return state;

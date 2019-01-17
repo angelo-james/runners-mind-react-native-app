@@ -6,45 +6,54 @@ import { Container, Form, Item, Label, Button, Text, H1 } from 'native-base';
 import { validateUser } from '../actions/userActions';
 class LoginForm extends Component {
   state = {
-    username: '',
+    email: '',
     password: ''
   }
 
-  toggle = (navigate) => {
-    this.props.getUser()
-    navigate('UserProfile')
+  handleSubmit = () => {
+    if (this.state.email.trim() === '') return
+    this.props.validateUser(this.state)
+    this.props.navigation.navigate('UserProfile')
   }
 
-  handleUserInfoChange = () => {
+  onChangePassword = (val) => {
     this.setState({
-      username: '',
-      password: ''
+      password: val.toLowerCase()
+    })
+  }
+
+  onChangeEmail = (val) => {
+    this.setState({
+      email: val.toLowerCase()
     })
   }
 
   render() {
-    const { navigate } = this.props.navigation;
-    
     return (
       <Container
         style={styles.Container}
       >
         <Form>
           <H1 style={{alignSelf: 'center'}}> Runners Mind </H1>
-          <Item floatingLabel>
-            <Label>Username</Label>
+          
+            {/* <Label>email</Label> */}
             <TextInput 
-              value='username'
-              onChangeText={ (e) => this.setState({username: e.target.value}) }
+              placeholder='email'
+              
+              value={this.state.email}
+              onChangeText={this.onChangeEmail}
             />
-          </Item>
-          <Item floatingLabel last>
-            <Label>Password</Label>
+          
+          
+            {/* <Label>Password</Label> */}
             <TextInput 
-              onChangeText={ this.props.enterPassword }
+              placeholder='password'
+              
+              value={this.state.password}
+              onChangeText={this.onChangePassword}              
             />
-          </Item>
-          <Button onPress={() => this.toggle(navigate)} style={styles.loginButton} small bordered>
+          
+          <Button onPress={this.handleSubmit} style={styles.loginButton} small bordered>
             <Text> Login </Text>
           </Button>
         </Form>
@@ -55,7 +64,7 @@ class LoginForm extends Component {
 
 const mapDispatchToProps = (dispatch => {
   return {
-    getUser: bindActionCreators(validateUser, dispatch)
+    validateUser: bindActionCreators(validateUser, dispatch)
   }
 })
 
